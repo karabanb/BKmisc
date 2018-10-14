@@ -23,7 +23,7 @@ select_unique_dt <- function(x) {
   x <- data.table::as.data.table(x)
   cols <- x[, lapply(data.table::.SD, data.table::uniqueN)] > 1
   cols <- cols[cols == TRUE]
-  x[, data.table::..cols]
+  x[, ..cols]
 }
 
 
