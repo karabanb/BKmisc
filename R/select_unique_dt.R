@@ -21,15 +21,7 @@ select_unique_dt <- function(x) {
   }
 
   x <- data.table::as.data.table(x)
-<<<<<<< HEAD
   cols <- data.table::x[, lapply(data.table::.SD, data.table::uniqueN)] > 1
-=======
-<<<<<<< HEAD
-  cols <- data.table::x[, lapply(data.table::.SD, data.table::uniqueN)] > 1
-=======
-  cols <- x[, lapply(data.table::.SD, data.table::uniqueN)] > 1
->>>>>>> 22d943f24e59eda5f16f8fd069e4ec03fc58c7fa
->>>>>>> 37224ca83edbd757e2ffa221d4a808a21ce11bcb
   cols <- cols[cols == TRUE]
   x[, data.table::..cols]
 }
