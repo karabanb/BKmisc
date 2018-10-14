@@ -21,7 +21,7 @@ select_unique_dt <- function(x) {
   }
 
   x <- data.table::as.data.table(x)
-  cols <- x[, lapply(.SD, uniqueN)] > 1
+  cols <- x[, lapply(.SD, data.table::uniqueN)] > 1
   cols <- cols[cols == TRUE]
   x[, ..cols]
 }
