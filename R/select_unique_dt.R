@@ -7,7 +7,9 @@
 #' values.
 #' @export
 #'
-#'' @examples
+#' @import data.table
+#'
+#' @examples
 #' df <- data.frame(v1 = 1:4, v2 = 1, v3 = LETTERS[1:4], v4 = c(1, 1, NA, NA))
 #' df_unq <- select_unique(df)
 #' df; df_unq
@@ -21,8 +23,7 @@ select_unique_dt <- function(x) {
   }
 
   x <- data.table::as.data.table(x)
-  cols <- x[, lapply(.SD, data.table::uniqueN)] > 1
-  cols <- cols[cols == TRUE]
+  cols <- which(sapply(x, function(x){length(unique(x)) > 1}))
   x[, cols, with = FALSE]
 }
 

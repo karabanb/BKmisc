@@ -16,6 +16,12 @@ values.
 \description{
 Select variables which contain at least two unique values by \code{data.table} way
 }
+\examples{
+df <- data.frame(v1 = 1:4, v2 = 1, v3 = LETTERS[1:4], v4 = c(1, 1, NA, NA))
+df_unq <- select_unique(df)
+df; df_unq
+
+}
 \author{
 Bartlomiej Karaban
 }
