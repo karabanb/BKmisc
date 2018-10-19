@@ -17,10 +17,9 @@
 
 select_unique <- function(x){
 
-  if ((class(x) %in% 'matrix')){
-    x <- as.data.frame(x)
+  if (!any('data.frame' %in% class(x))){
+      x <- as.data.frame(x)
   }
-
   if (class(x) == 'list' | is.vector(x) == TRUE){
     stop('x must be a matrix or data.frame class object')
   }
