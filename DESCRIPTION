@@ -13,4 +13,3 @@ URL: https://github.com/karabanb/BKmisc
 BugReports: https://github.com/karabanb/BKmisc/issues
 RoxygenNote: 6.1.0
 Suggests: testthat
-Imports: data.table (>= 1.9.8)
