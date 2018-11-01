@@ -1,13 +1,33 @@
 
+#' Dicretizing Continous Values by Decision Tree
+#'
+#' @param x - data.frame with continues variables
+#' @param y - Target binary variable
+#' @param maxdepth - parameter from rpart::rpart.control. It sets number of expected bins.
+#' @param minbucket - parameter from rpart::rpart.control. It sets minumum size of bin.
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#'
 discretize_rpart <- function(x, y, maxdepth = 2, minbucket = 10){
 
   results <- list()
   trees_results <- list()
 
+  if(length(unique(x[, y])) != 2){
+    stop("Target variable must has 2 levels !")
+  }
+
+  if(class(x[, y]) %in% c("numeric", "logical")){
+    x[, y] <- as.factor(x[, y])
+  }
+
   for (i in base::setdiff(colnames(x),y)) {
     trees_results[[i]] <- rpart::rpart(paste0(y, " ~", i),
                                        data = x,
-                                       control = rpart.control(minbucket = minbucket, cp = 0.001, maxdepth = maxdepth))
+                                       control = rpart::rpart.control(minbucket = minbucket, cp = 0.001, maxdepth = maxdepth))
   }
 
   results$trees_results <- trees_results
