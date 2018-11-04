@@ -27,7 +27,10 @@ discretize_rpart <- function(x, y, maxdepth = 2, minbucket = 10){
   for (i in base::setdiff(colnames(x),y)) {
     trees_results[[i]] <- rpart::rpart(paste0(y, " ~", i),
                                        data = x,
-                                       control = rpart::rpart.control(minbucket = minbucket, cp = 0.001, maxdepth = maxdepth))
+                                       control = rpart::rpart.control(minbucket = minbucket,
+                                                                      cp = 0.001,
+                                                                      maxdepth = maxdepth)
+                                       )
   }
 
   results$trees_results <- trees_results
@@ -46,6 +49,14 @@ discretize_rpart <- function(x, y, maxdepth = 2, minbucket = 10){
   }
 
   results$nodes_df <- nodes_df
+
+  discretized_df <- x
+
+  for (i in names(results$trees_results)) {
+    discretized_df[ ,i] <- cut_by_tree(results$trees_results[[i]], x ,i)
+  }
+
+  results$discretized_df <- discretized_df
 
   return(results)
 
