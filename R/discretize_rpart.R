@@ -20,7 +20,7 @@ discretize_rpart <- function(x, y, maxdepth = 2, minbucket = 10){
     stop("Target variable must has 2 levels !")
   }
 
-  if(class(x[, y]) %in% c("numeric", "logical")){
+  if(class(x[, y]) %in% c("numeric", "logical", "integer")){
     x[, y] <- as.factor(x[, y])
   }
 
