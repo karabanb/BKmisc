@@ -16,6 +16,14 @@ discretize_rpart <- function(x, y, maxdepth = 2, minbucket = 10){
   results <- list()
   trees_results <- list()
 
+  # selecting vairables without target, character and factors
+
+  proper_vars <- base::setdiff(colnames(x), y)
+  proper_vars <- proper_vars[sapply(x[, proper_vars],
+                                    function(x){!is.factor(x) & !is.character(x) & length(unique(x)) > 1})]
+
+  # chcecking initials conditions
+
   if(length(unique(x[, y])) != 2){
     stop("Target variable must has 2 levels !")
   }
@@ -24,11 +32,13 @@ discretize_rpart <- function(x, y, maxdepth = 2, minbucket = 10){
     x[, y] <- as.factor(x[, y])
   }
 
-  for (i in base::setdiff(colnames(x),y)) {
+  # discretizing by rpart trees
+
+  for (i in proper_vars) {
     trees_results[[i]] <- rpart::rpart(paste0(y, " ~", i),
                                        data = x,
                                        control = rpart::rpart.control(minbucket = minbucket,
-                                                                      cp = 0.001,
+                                                                      cp = 0.0001,
                                                                       maxdepth = maxdepth)
                                        )
   }
