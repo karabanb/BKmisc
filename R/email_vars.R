@@ -24,7 +24,7 @@ email_vars <- function(x, address, name, surname) {
   if (!all(sapply(x, class) %in% c("factor", "character")))
     stop("Variables must be factors or characters!")
 
-  if (!all(grepl("^[[:alnum:].-_]+@[[:alnum:].-]+$", x[,"address"])))
+  if (!all(grepl("^[[:alnum:].-_]+@[[:alnum:].-]+$", x[,address])))
     warning("Your data contains not validated emails!")
 
   # converting factors to characters
@@ -40,12 +40,21 @@ email_vars <- function(x, address, name, surname) {
 
   # making features based on email, name and surname
 
+  # output<- data.frame(address = x[ , address],
+  #                     email_name = sapply(x[, address],, FUN = grepl,  pattern = x[, name], ignore.case = TRUE)
+  #                     # email_surname = grepl(x[, surname], x[, address], ignore.case = TRUE),
+  #                     # email_both = grepl(x[, name], x[, address], ignore.case = TRUE) &
+  #                     #   grepl(x[, surname], x[, address], ignore.case = TRUE)
+  #                     )
+
+  stri_opts <- stri_opts_fixed(case_insensitive = TRUE)
+
   output<- data.frame(address = x[ , address],
-                      email_name = grepl(x[, name], x[, address], ignore.case = TRUE),
-                      email_surname = grepl(x[, surname], x[, address], ignore.case = TRUE),
-                      email_both = grepl(x[, name], x[, address], ignore.case = TRUE) &
-                        grepl(x[, surname], x[, address], ignore.case = TRUE)
-                      )
+                      email_name = stringi::stri_detect_fixed(x[, address], x[, name], opts_fixed = stri_opts),
+                      email_surname = stringi::stri_detect_fixed(x[, address], x[, surname], opts_fixed = stri_opts),
+                      email_both = stringi::stri_detect_fixed(x[, address], x[, name], opts_fixed = stri_opts) &
+                                   stringi::stri_detect_fixed(x[, address], x[, surname], opts_fixed = stri_opts)
+  )
   return(output)
 
 }
