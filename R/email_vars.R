@@ -56,6 +56,8 @@ email_vars <- function(x, address, name, surname) {
 
   output[ix_na, vars_output] <- "email doesn't exist"
 
+  output <- as.data.frame(sapply(output, as.factor))
+
   return(output)
 
 }
