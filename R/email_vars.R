@@ -44,7 +44,15 @@ email_vars <- function(x, address, name, surname) {
                       email_surname = stringi::stri_detect_fixed(x[, address], x[, surname], opts_fixed = stri_opts),
                       email_both = stringi::stri_detect_fixed(x[, address], x[, name], opts_fixed = stri_opts) &
                                    stringi::stri_detect_fixed(x[, address], x[, surname], opts_fixed = stri_opts)
+                     # email_variable = NULL
   )
+
+  output$email_variable <- ifelse(output[, "email_both"] == TRUE, 'name and surname',
+    ifelse(output[, "email_surname"] == TRUE, 'only surname',
+           ifelse(output[, "email_name"] == TRUE, 'only name', "any")
+         )
+  )
+
 
   ix_na <- is.na(output$address)
   vars_output <- c("email_name", "email_surname", "email_both")
@@ -54,7 +62,7 @@ email_vars <- function(x, address, name, surname) {
     stringsAsFactors = FALSE
   )
 
-  output[ix_na, vars_output] <- "email doesn't exist"
+  output[ix_na, c(vars_output, "email_variable")] <- "email doesn't exist"
 
   output <- as.data.frame(sapply(output, as.factor))
 
