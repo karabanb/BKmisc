@@ -3,3 +3,4 @@
 export(discretize_rpart)
 export(email_vars)
 export(select_unique)
+export(start_proj)
