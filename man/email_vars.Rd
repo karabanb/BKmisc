@@ -15,6 +15,9 @@ email_vars(x, address, name, surname)
 
 \item{surname}{- column's name with of email's owner surname}
 }
+\value{
+
+}
 \description{
 Title Extract features form email address, name and surname
 }

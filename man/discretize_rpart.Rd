@@ -15,6 +15,9 @@ discretize_rpart(x, y, maxdepth = 2, minbucket = 10)
 
 \item{minbucket}{- parameter from rpart::rpart.control. It sets minumum size of bin.}
 }
+\value{
+
+}
 \description{
 Dicretizing Continous Values by Decision Tree
 }
