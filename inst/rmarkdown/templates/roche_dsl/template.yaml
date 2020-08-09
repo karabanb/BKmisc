@@ -1,0 +1,4 @@
+name: roche_dsl
+description: >
+   Template of report for summary of the analysis
+create_dir: FALSE
