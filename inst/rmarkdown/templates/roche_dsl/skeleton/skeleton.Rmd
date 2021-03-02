@@ -5,6 +5,7 @@ date: "The Date"
 output: 
   html_document:
     toc: TRUE
+    css: "style.css"
 ---
 
 ```{r setup, include=FALSE}
