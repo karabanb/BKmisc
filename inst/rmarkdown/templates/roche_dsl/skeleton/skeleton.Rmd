@@ -5,7 +5,10 @@ date: "The Date"
 output: 
   html_document:
     toc: TRUE
-    css: "style.css"
+    css: "styles/style.css"
+    includes: 
+      before_body: "styles/header.css"
+      after_body: "styles/footer.css"
 ---
 
 ```{r setup, include=FALSE}
