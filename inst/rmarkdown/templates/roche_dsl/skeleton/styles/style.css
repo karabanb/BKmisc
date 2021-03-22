@@ -6,13 +6,23 @@ body {
   text-align: justify;
 }
 
+
 p {
   color: #333;
   margin-top: 20px;
 }
 
+
+li {
+  color: #333
+}
+
+
 h2{
   margin-top: 30px;
 }
 
+.table{
+  width: 40%;
+}
 
